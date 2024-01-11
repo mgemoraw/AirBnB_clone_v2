@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Compresses web static package"""
 from fabric.api import *
-form datetime import datetime;
-from os import path;
+from datetime import datetime
+from os import path
 
 env.hosts = ['54.146.92.103', '100.26.234.70']
 env.user = 'ubuntu'
