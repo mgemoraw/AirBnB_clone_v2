@@ -1,0 +1,7 @@
+pyparsing
+appdirs
+setuptools
+cryptography
+bcrypt
+PyNaCl
+Fabric3

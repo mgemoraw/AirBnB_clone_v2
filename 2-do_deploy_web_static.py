@@ -14,26 +14,33 @@ def do_deploy(archive_path):
     try:
         if not (path.exists(archive_path)):
             return False
-        
+
         # upload archive using put command
         put(archive_path, '/tmp/')
 
         # create target directory
         ts = archive_path[-18:-4]
-        run('sudo mkdir -p /data/web_static/releases/web_static_{}/'.format(ts))
+        run('sudo mkdir -p /data/web_static/releases/web_static_{}/\
+            '.format(ts))
 
         # unzip archive and delte tgz
-        run('sudo tar -xzf /tmp/webstatic_{}.tgz -C /data/web_static/releases/web_static_{}/'.format(ts, ts))
+        run('sudo tar -xzf /tmp/webstatic_{}.tgz -C /data/web_static/\
+            releases/web_static_{}/'.format(ts, ts))
 
-        # now remove 
-        run ('sudo rm -rf /data/web_static/releases/web_static_{}/web_static'.format(ts))
+        # now remove
+        run('sudo rm -rf /data/web_static/releases/web_static_{}/\
+             web_static'.format(ts))
 
         # delte pre-existing symbolic link (soft link)
-        run('sudo rm -rf /data/web_static/releases/web_static_{}/ /data/web_static/current'.format(ts))
+        run('sudo rm -rf /data/web_static/releases/web_static_{}/ /data/\
+            web_static/current'.format(ts))
 
         # re-establish symbolic soft link
-        run('sudo ln -sf /data/web_static/releases/web_static_{}/ /data/web_static/current'.format(ts))
+        run('sudo ln -sf /data/web_static/releases/web_static_{}/ /data/\
+            web_static/current'.format(ts))
 
-    except:
+    except Exception as e:
         return False
-    return True # returns true on success
+
+    # returns true on success
+    return True
