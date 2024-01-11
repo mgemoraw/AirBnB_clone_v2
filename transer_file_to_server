@@ -1,0 +1,28 @@
+#!/usr/bin/bash
+# checking for the command line argumetns
+if [ $# -lt 4 ]
+then
+    echo "Usage: 0-transfer_file PATH_TO_FILE IP USRENAME PATH_TO_SSH"
+    exit 1
+fi
+
+# assining parameters to
+path_to_file=$1
+ip=$2
+usrname=$3
+path_to_ssh_key=$4
+
+
+# disabling strict host key checking
+# -o for output -i for identity
+scp -o "StrictHostKeyChecking=no" -i "$path_to_ssh_key" "$path_to_file" "$usrename@$ip:~/"  # coppying to usrs home directory
+
+# checking if the transfer was successfull or not
+if [$? -eq 0 ]
+then
+    "echo "File was transfered successfully"
+else
+    echo "File Transfer  FAILED"
+fi
+
+
